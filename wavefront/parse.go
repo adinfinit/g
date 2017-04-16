@@ -15,24 +15,24 @@ func parse32(s string) (float32, error) {
 	return float32(x), err
 }
 
-func ParseOBJ(rd io.Reader) ([]*Object, []string, error) {
+func ParseOBJ(rd io.Reader) (Model, error) {
 	sc := bufio.NewScanner(rd)
-	var objects []*Object
-	var materials []string
+	model := Model{}
 
 	var object *Object
 	var group *Group
 
 	ensureGroup := func() {
 		if object == nil {
-			object = &Object{}
-			objects = append(objects, object)
+			model.Objects = append(model.Objects, Object{})
+			object = &model.Objects[len(model.Objects)-1]
 		}
 		if group == nil {
 			object.Groups = append(object.Groups, Group{})
 			group = &object.Groups[len(object.Groups)-1]
 		}
 	}
+
 	nextGroup := func() {
 		ensureGroup()
 		object.Groups = append(object.Groups, Group{})
@@ -52,13 +52,14 @@ func ParseOBJ(rd io.Reader) ([]*Object, []string, error) {
 
 		switch tokens[0] {
 		case "mtllib":
-			materials = append(materials, rest)
+			model.MaterialLibs = append(model.MaterialLibs, rest)
 		case "o":
 			group = nil
-			object = &Object{}
+
+			model.Objects = append(model.Objects, Object{})
+			object = &model.Objects[len(model.Objects)-1]
 			// TODO: handle multiple names
 			object.Name = tokens[1]
-			objects = append(objects, object)
 		case "g":
 			nextGroup()
 			// TODO: handle multiple names
@@ -71,7 +72,7 @@ func ParseOBJ(rd io.Reader) ([]*Object, []string, error) {
 			v.X, err = parse32(tokens[1])
 			v.Y, err = parse32(tokens[2])
 			v.Z, err = parse32(tokens[3])
-			group.Positions = append(group.Positions, v)
+			model.Positions = append(model.Positions, v)
 		case "vt":
 			ensureGroup()
 			var v g.Vec3
@@ -80,14 +81,14 @@ func ParseOBJ(rd io.Reader) ([]*Object, []string, error) {
 			if len(tokens) > 3 {
 				v.Z, err = parse32(tokens[3])
 			}
-			group.TexCoords = append(group.TexCoords, v)
+			model.TexCoords = append(model.TexCoords, v)
 		case "vn":
 			ensureGroup()
 			var v g.Vec3
 			v.X, err = parse32(tokens[1])
 			v.Y, err = parse32(tokens[2])
 			v.Z, err = parse32(tokens[3])
-			group.Normals = append(group.Normals, v)
+			model.Normals = append(model.Normals, v)
 		case "usemtl":
 			ensureGroup()
 			group.Material = tokens[1]
@@ -114,6 +115,9 @@ func ParseOBJ(rd io.Reader) ([]*Object, []string, error) {
 				if indices[2] != "" {
 					vertex.Normal, err = strconv.Atoi(indices[2])
 				}
+				vertex.Position--
+				vertex.TexCoord--
+				vertex.Normal--
 
 				face.Vertices = append(face.Vertices, vertex)
 			}
@@ -123,5 +127,5 @@ func ParseOBJ(rd io.Reader) ([]*Object, []string, error) {
 		}
 	}
 
-	return objects, materials, err
+	return model, err
 }

@@ -75,11 +75,11 @@ illum 2
 `
 
 func TestParse(t *testing.T) {
-	objects, materials, err := ParseOBJ(strings.NewReader(boxobj))
-	for i, obj := range objects {
+	model, err := ParseOBJ(strings.NewReader(boxobj))
+	for i, obj := range model.Objects {
 		fmt.Printf("%d: %+v\n\n", i, obj)
 	}
-	for i, mat := range materials {
+	for i, mat := range model.Materials {
 		fmt.Printf("%d: %+v\n\n", i, mat)
 	}
 	fmt.Println(err)
