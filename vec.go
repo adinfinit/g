@@ -126,9 +126,18 @@ func (a Vec2) Clamp01() Vec2 {
 	return Vec2{X: Clamp01(a.X), Y: Clamp01(a.Y)}
 }
 
-// Clamp1 vector inside -1, 1
+// Clamp1 returns vector inside -1, 1
 func (a Vec2) Clamp1() Vec2 {
 	return Vec2{X: Clamp1(a.X), Y: Clamp1(a.Y)}
+}
+
+// ClampUnit returns scaled vector where Len <= 1
+func (a Vec2) ClampUnit() Vec2 {
+	m := a.Len()
+	if m < 1 {
+		return a
+	}
+	return a.Scale(1 / m)
 }
 
 // Slice returns all components as a slice
@@ -301,9 +310,18 @@ func (a Vec3) Clamp01() Vec3 {
 	return Vec3{X: Clamp01(a.X), Y: Clamp01(a.Y), Z: Clamp01(a.Z)}
 }
 
-// Clamp1 vector inside -1, 1
+// Clamp1 returns vector inside -1, 1
 func (a Vec3) Clamp1() Vec3 {
 	return Vec3{X: Clamp1(a.X), Y: Clamp1(a.Y), Z: Clamp1(a.Z)}
+}
+
+// ClampUnit returns scaled vector where Len <= 1
+func (a Vec3) ClampUnit() Vec3 {
+	m := a.Len()
+	if m < 1 {
+		return a
+	}
+	return a.Scale(1 / m)
 }
 
 // Slice returns all components as a slice
@@ -482,9 +500,18 @@ func (a Vec4) Clamp01() Vec4 {
 	return Vec4{X: Clamp01(a.X), Y: Clamp01(a.Y), Z: Clamp01(a.Z), W: Clamp01(a.W)}
 }
 
-// Clamp1 vector inside -1, 1
+// Clamp1 returns vector inside -1, 1
 func (a Vec4) Clamp1() Vec4 {
 	return Vec4{X: Clamp1(a.X), Y: Clamp1(a.Y), Z: Clamp1(a.Z), W: Clamp1(a.W)}
+}
+
+// ClampUnit returns scaled vector where Len <= 1
+func (a Vec4) ClampUnit() Vec4 {
+	m := a.Len()
+	if m < 1 {
+		return a
+	}
+	return a.Scale(1 / m)
 }
 
 // Slice returns all components as a slice

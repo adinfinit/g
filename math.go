@@ -7,24 +7,20 @@ const (
 	Tau = 2 * math.Pi
 )
 
-func Sin(v float32) float32 {
-	return float32(math.Sin(float64(v)))
-}
+func Pow(base, e float32) float32 { return float32(math.Pow(float64(base), float64(e))) }
+func Mod(x, y float32) float32    { return float32(math.Mod(float64(x), float64(y))) }
+func Sqr(v float32) float32       { return v * v }
+func Sqrt(v float32) float32      { return float32(math.Sqrt(float64(v))) }
 
-func Cos(v float32) float32 {
-	return float32(math.Cos(float64(v)))
-}
+func Ceil(v float32) float32  { return float32(math.Ceil(float64(v))) }
+func Floor(v float32) float32 { return float32(math.Floor(float64(v))) }
+
+func Sin(v float32) float32 { return float32(math.Sin(float64(v))) }
+func Cos(v float32) float32 { return float32(math.Cos(float64(v))) }
 
 func Sincos(v float32) (float32, float32) {
 	sn, cs := math.Sincos(float64(v))
 	return float32(sn), float32(cs)
-}
-
-func Sqr(v float32) float32 {
-	return v * v
-}
-func Sqrt(v float32) float32 {
-	return float32(math.Sqrt(float64(v)))
 }
 
 func Abs(v float32) float32 {
@@ -40,12 +36,14 @@ func Min(a, b float32) float32 {
 	}
 	return b
 }
+
 func Max(a, b float32) float32 {
 	if a > b {
 		return a
 	}
 	return b
 }
+
 func MinMax(a, b float32) (float32, float32) {
 	if a < b {
 		return a, b
@@ -91,18 +89,4 @@ func Clamp1(v float32) float32 {
 		return 1
 	}
 	return v
-}
-
-func Pow(base, e float32) float32 {
-	return float32(math.Pow(float64(base), float64(e)))
-}
-
-func Mod(x, y float32) float32 {
-	return float32(math.Mod(float64(x), float64(y)))
-}
-func Ceil(v float32) float32 {
-	return float32(math.Ceil(float64(v)))
-}
-func Floor(v float32) float32 {
-	return float32(math.Floor(float64(v)))
 }

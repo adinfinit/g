@@ -280,13 +280,22 @@ func (a {{.Vec}}) Clamp01() {{.Vec}} {
 	}
 }
 
-// Clamp1 vector inside -1, 1
+// Clamp1 returns vector inside -1, 1
 func (a {{.Vec}}) Clamp1() {{.Vec}} {
 	return {{.Vec}}{
 		{{- range .Comp -}}
 		{{.}}: Clamp1(a.{{.}}),
 		{{- end -}}
 	}
+}
+
+// ClampUnit returns scaled vector where Len <= 1
+func (a {{.Vec}}) ClampUnit() {{.Vec}} {
+	m := a.Len()
+	if m < 1 { 
+		return a
+	}
+	return a.Scale(1/m)
 }
 
 // Slice returns all components as a slice
