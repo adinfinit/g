@@ -20,6 +20,11 @@ func (a Vec2) Add(b Vec2) Vec2 {
 	return Vec2{X: a.X + b.X, Y: a.Y + b.Y}
 }
 
+// Neg returns -a
+func (a Vec2) Neg() Vec2 {
+	return Vec2{X: -a.X, Y: -a.Y}
+}
+
 // Sub does a component wise a - b
 func (a Vec2) Sub(b Vec2) Vec2 {
 	return Vec2{X: a.X - b.X, Y: a.Y - b.Y}
@@ -201,6 +206,11 @@ func V3(X, Y, Z float32) Vec3 {
 // Add does a component wise a + b
 func (a Vec3) Add(b Vec3) Vec3 {
 	return Vec3{X: a.X + b.X, Y: a.Y + b.Y, Z: a.Z + b.Z}
+}
+
+// Neg returns -a
+func (a Vec3) Neg() Vec3 {
+	return Vec3{X: -a.X, Y: -a.Y, Z: -a.Z}
 }
 
 // Sub does a component wise a - b
@@ -395,6 +405,11 @@ func V4(X, Y, Z, W float32) Vec4 {
 // Add does a component wise a + b
 func (a Vec4) Add(b Vec4) Vec4 {
 	return Vec4{X: a.X + b.X, Y: a.Y + b.Y, Z: a.Z + b.Z, W: a.W + b.W}
+}
+
+// Neg returns -a
+func (a Vec4) Neg() Vec4 {
+	return Vec4{X: -a.X, Y: -a.Y, Z: -a.Z, W: -a.W}
 }
 
 // Sub does a component wise a - b

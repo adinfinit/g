@@ -83,6 +83,15 @@ func (a {{.Vec}}) Add(b {{.Vec}}) {{.Vec}} {
 	}
 }
 
+// Neg returns -a
+func (a {{.Vec}}) Neg() {{.Vec}} {
+	return {{.Vec}}{
+		{{- range .Comp -}}
+		{{.}}: -a.{{.}},
+		{{- end -}}
+	}
+}
+
 // Sub does a component wise a - b
 func (a {{.Vec}}) Sub(b {{.Vec}}) {{.Vec}} {
 	return {{.Vec}}{
