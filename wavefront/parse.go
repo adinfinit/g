@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"adinfinitum.ee/g"
+	"github.com/adinfinit/g"
 )
 
 func parse32(s string) (float32, error) {

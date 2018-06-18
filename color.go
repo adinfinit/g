@@ -20,15 +20,22 @@ func RGBAHex(hex uint32) Color {
 	}
 }
 
+// RGBA returns color based on RGBA in range 0..1
 func RGBA(r, g, b, a float32) Color { return Color{sat8(r), sat8(g), sat8(b), sat8(a)} }
-func HSLA(h, s, l, a float32) Color { return RGBA(hsla(h, s, l, a)) }
-func HSL(h, s, l float32) Color     { return HSLA(h, s, l, 1) }
 
+// HSLA returns color based on HSLA in range 0..1
+func HSLA(h, s, l, a float32) Color { return RGBA(hsla(h, s, l, a)) }
+
+// HSL returns color based on HSL in range 0..1
+func HSL(h, s, l float32) Color { return HSLA(h, s, l, 1) }
+
+// WithAlpha returns new color with different alpha
 func (c Color) WithAlpha(a uint8) Color {
 	c.A = a
 	return c
 }
 
+// Float returns RGBA scaled to 0..1
 func (c Color) Float() (r, g, b, a float32) {
 	return float32(c.R) / 0xFF, float32(c.G) / 0xFF, float32(c.B) / 0xFF, float32(c.A) / 0xFF
 }
@@ -36,6 +43,7 @@ func (c Color) Float() (r, g, b, a float32) {
 // Bytes returns []byte{R, G, B, A}
 func (c Color) Bytes() []byte { return []byte{c.R, c.G, c.B, c.A} }
 
+// Lerp linearly interpolates each RGBA component separately
 func (a Color) Lerp(b Color, p float32) Color {
 	ar, ag, ab, aa := a.Float()
 	br, bg, bb, ba := b.Float()
@@ -87,6 +95,7 @@ func hsla(h, s, l, a float32) (r, g, b, ra float32) {
 	return
 }
 
+// sat8 converts 0..1 float to 0..255 uint8
 func sat8(v float32) uint8 {
 	v *= 255.0
 	if v >= 255 {
