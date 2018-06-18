@@ -92,29 +92,25 @@ func (a {{.Vec}}) Sub(b {{.Vec}}) {{.Vec}} {
 	}
 }
 
-// Mul does a component wise a * b
-func (a {{.Vec}}) Mul(b {{.Vec}}) {{.Vec}} {
+// Mul scales each component by s
+func (a {{.Vec}}) Mul(s float32) {{.Vec}} {
 	return {{.Vec}}{
 		{{- range .Comp -}}
-		{{.}}: a.{{.}} * b.{{.}},
+		{{.}}: a.{{.}} * s,
 		{{- end -}}
 	}
 }
 
 // Div does a component wise a / b
-func (a {{.Vec}}) Div(b {{.Vec}}) {{.Vec}} {
-	return {{.Vec}}{
-		{{- range .Comp -}}
-		{{.}}: a.{{.}} / b.{{.}},
-		{{- end -}}
-	}
+func (a {{.Vec}}) Div(s float32) {{.Vec}} {
+	return a.Mul(1 / s)
 }
 
-// Scale scales each component by s
-func (a {{.Vec}}) Scale(s float32) {{.Vec}} {
+// Scale does a component wise a * b
+func (a {{.Vec}}) Scale(b {{.Vec}}) {{.Vec}} {
 	return {{.Vec}}{
 		{{- range .Comp -}}
-		{{.}}: a.{{.}} * s,
+		{{.}}: a.{{.}} * b.{{.}},
 		{{- end -}}
 	}
 }
@@ -128,6 +124,13 @@ func (a {{.Vec}}) Dot(b {{.Vec}}) float32 {
 		{{- end -}}
 	)
 }
+
+{{ if eq .N 3 -}}
+// Cross returns cross product of a and b
+func (a Vec3) Cross(b Vec3) Vec3 {
+	return Vec3{a.Y*b.Z - a.Z*b.Y, a.Z*b.X - a.X*b.Z, a.X*b.Y - a.Y*b.X}
+}
+{{- end }}
 
 // Len returns vector length
 func (a {{.Vec}}) Len() float32 {
@@ -151,12 +154,7 @@ func (a {{.Vec}}) Len2() float32 {
 
 // Normalize returns normalized vector
 func (a {{.Vec}}) Normalize() {{.Vec}} {
-	s := 1.0 / a.Len()
-	return {{.Vec}}{
-		{{- range .Comp -}}
-		{{.}}: a.{{.}} * s,
-		{{- end -}}
-	}
+	return a.Div(a.Len())
 }
 
 // Min does an element wise min
@@ -294,7 +292,7 @@ func (a {{.Vec}}) ClampUnit() {{.Vec}} {
 	if m < 1 { 
 		return a
 	}
-	return a.Scale(1/m)
+	return a.Div(m)
 }
 
 // Slice returns all components as a slice

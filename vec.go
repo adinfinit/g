@@ -25,19 +25,19 @@ func (a Vec2) Sub(b Vec2) Vec2 {
 	return Vec2{X: a.X - b.X, Y: a.Y - b.Y}
 }
 
-// Mul does a component wise a * b
-func (a Vec2) Mul(b Vec2) Vec2 {
-	return Vec2{X: a.X * b.X, Y: a.Y * b.Y}
+// Mul scales each component by s
+func (a Vec2) Mul(s float32) Vec2 {
+	return Vec2{X: a.X * s, Y: a.Y * s}
 }
 
 // Div does a component wise a / b
-func (a Vec2) Div(b Vec2) Vec2 {
-	return Vec2{X: a.X / b.X, Y: a.Y / b.Y}
+func (a Vec2) Div(s float32) Vec2 {
+	return a.Mul(1 / s)
 }
 
-// Scale scales each component by s
-func (a Vec2) Scale(s float32) Vec2 {
-	return Vec2{X: a.X * s, Y: a.Y * s}
+// Scale does a component wise a * b
+func (a Vec2) Scale(b Vec2) Vec2 {
+	return Vec2{X: a.X * b.X, Y: a.Y * b.Y}
 }
 
 // Dot returns the dot product of a and b
@@ -57,8 +57,7 @@ func (a Vec2) Len2() float32 {
 
 // Normalize returns normalized vector
 func (a Vec2) Normalize() Vec2 {
-	s := 1.0 / a.Len()
-	return Vec2{X: a.X * s, Y: a.Y * s}
+	return a.Div(a.Len())
 }
 
 // Min does an element wise min
@@ -137,7 +136,7 @@ func (a Vec2) ClampUnit() Vec2 {
 	if m < 1 {
 		return a
 	}
-	return a.Scale(1 / m)
+	return a.Div(m)
 }
 
 // Slice returns all components as a slice
@@ -209,24 +208,29 @@ func (a Vec3) Sub(b Vec3) Vec3 {
 	return Vec3{X: a.X - b.X, Y: a.Y - b.Y, Z: a.Z - b.Z}
 }
 
-// Mul does a component wise a * b
-func (a Vec3) Mul(b Vec3) Vec3 {
-	return Vec3{X: a.X * b.X, Y: a.Y * b.Y, Z: a.Z * b.Z}
+// Mul scales each component by s
+func (a Vec3) Mul(s float32) Vec3 {
+	return Vec3{X: a.X * s, Y: a.Y * s, Z: a.Z * s}
 }
 
 // Div does a component wise a / b
-func (a Vec3) Div(b Vec3) Vec3 {
-	return Vec3{X: a.X / b.X, Y: a.Y / b.Y, Z: a.Z / b.Z}
+func (a Vec3) Div(s float32) Vec3 {
+	return a.Mul(1 / s)
 }
 
-// Scale scales each component by s
-func (a Vec3) Scale(s float32) Vec3 {
-	return Vec3{X: a.X * s, Y: a.Y * s, Z: a.Z * s}
+// Scale does a component wise a * b
+func (a Vec3) Scale(b Vec3) Vec3 {
+	return Vec3{X: a.X * b.X, Y: a.Y * b.Y, Z: a.Z * b.Z}
 }
 
 // Dot returns the dot product of a and b
 func (a Vec3) Dot(b Vec3) float32 {
 	return (a.X*b.X + a.Y*b.Y + a.Z*b.Z)
+}
+
+// Cross returns cross product of a and b
+func (a Vec3) Cross(b Vec3) Vec3 {
+	return Vec3{a.Y*b.Z - a.Z*b.Y, a.Z*b.X - a.X*b.Z, a.X*b.Y - a.Y*b.X}
 }
 
 // Len returns vector length
@@ -241,8 +245,7 @@ func (a Vec3) Len2() float32 {
 
 // Normalize returns normalized vector
 func (a Vec3) Normalize() Vec3 {
-	s := 1.0 / a.Len()
-	return Vec3{X: a.X * s, Y: a.Y * s, Z: a.Z * s}
+	return a.Div(a.Len())
 }
 
 // Min does an element wise min
@@ -321,7 +324,7 @@ func (a Vec3) ClampUnit() Vec3 {
 	if m < 1 {
 		return a
 	}
-	return a.Scale(1 / m)
+	return a.Div(m)
 }
 
 // Slice returns all components as a slice
@@ -399,19 +402,19 @@ func (a Vec4) Sub(b Vec4) Vec4 {
 	return Vec4{X: a.X - b.X, Y: a.Y - b.Y, Z: a.Z - b.Z, W: a.W - b.W}
 }
 
-// Mul does a component wise a * b
-func (a Vec4) Mul(b Vec4) Vec4 {
-	return Vec4{X: a.X * b.X, Y: a.Y * b.Y, Z: a.Z * b.Z, W: a.W * b.W}
+// Mul scales each component by s
+func (a Vec4) Mul(s float32) Vec4 {
+	return Vec4{X: a.X * s, Y: a.Y * s, Z: a.Z * s, W: a.W * s}
 }
 
 // Div does a component wise a / b
-func (a Vec4) Div(b Vec4) Vec4 {
-	return Vec4{X: a.X / b.X, Y: a.Y / b.Y, Z: a.Z / b.Z, W: a.W / b.W}
+func (a Vec4) Div(s float32) Vec4 {
+	return a.Mul(1 / s)
 }
 
-// Scale scales each component by s
-func (a Vec4) Scale(s float32) Vec4 {
-	return Vec4{X: a.X * s, Y: a.Y * s, Z: a.Z * s, W: a.W * s}
+// Scale does a component wise a * b
+func (a Vec4) Scale(b Vec4) Vec4 {
+	return Vec4{X: a.X * b.X, Y: a.Y * b.Y, Z: a.Z * b.Z, W: a.W * b.W}
 }
 
 // Dot returns the dot product of a and b
@@ -431,8 +434,7 @@ func (a Vec4) Len2() float32 {
 
 // Normalize returns normalized vector
 func (a Vec4) Normalize() Vec4 {
-	s := 1.0 / a.Len()
-	return Vec4{X: a.X * s, Y: a.Y * s, Z: a.Z * s, W: a.W * s}
+	return a.Div(a.Len())
 }
 
 // Min does an element wise min
@@ -511,7 +513,7 @@ func (a Vec4) ClampUnit() Vec4 {
 	if m < 1 {
 		return a
 	}
-	return a.Scale(1 / m)
+	return a.Div(m)
 }
 
 // Slice returns all components as a slice
