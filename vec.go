@@ -55,8 +55,8 @@ func (a Vec2) Len2() float32 {
 	return (a.X*a.X + a.Y*a.Y)
 }
 
-// Normal returns normalized vector
-func (a Vec2) Normal() Vec2 {
+// Normalize returns normalized vector
+func (a Vec2) Normalize() Vec2 {
 	s := 1.0 / a.Len()
 	return Vec2{X: a.X * s, Y: a.Y * s}
 }
@@ -239,8 +239,8 @@ func (a Vec3) Len2() float32 {
 	return (a.X*a.X + a.Y*a.Y + a.Z*a.Z)
 }
 
-// Normal returns normalized vector
-func (a Vec3) Normal() Vec3 {
+// Normalize returns normalized vector
+func (a Vec3) Normalize() Vec3 {
 	s := 1.0 / a.Len()
 	return Vec3{X: a.X * s, Y: a.Y * s, Z: a.Z * s}
 }
@@ -429,8 +429,8 @@ func (a Vec4) Len2() float32 {
 	return (a.X*a.X + a.Y*a.Y + a.Z*a.Z + a.W*a.W)
 }
 
-// Normal returns normalized vector
-func (a Vec4) Normal() Vec4 {
+// Normalize returns normalized vector
+func (a Vec4) Normalize() Vec4 {
 	s := 1.0 / a.Len()
 	return Vec4{X: a.X * s, Y: a.Y * s, Z: a.Z * s, W: a.W * s}
 }
@@ -523,7 +523,9 @@ func (a Vec4) Slice() []float32 {
 func (a Vec4) FloatXY() [2]float32 { return [2]float32{a.X, a.Y} }
 
 // Float3 returns three first components
-func (a Vec4) FloatXYZ() [3]float32  { return [3]float32{a.X, a.Y, a.Z} } // Float4 returns four first components
+func (a Vec4) FloatXYZ() [3]float32 { return [3]float32{a.X, a.Y, a.Z} }
+
+// Float4 returns four first components
 func (a Vec4) FloatXYZW() [4]float32 { return [4]float32{a.X, a.Y, a.Z, a.W} }
 
 // XY returns Vec2{X, Y}

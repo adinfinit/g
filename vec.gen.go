@@ -149,8 +149,8 @@ func (a {{.Vec}}) Len2() float32 {
 	)
 }
 
-// Normal returns normalized vector
-func (a {{.Vec}}) Normal() {{.Vec}} {
+// Normalize returns normalized vector
+func (a {{.Vec}}) Normalize() {{.Vec}} {
 	s := 1.0 / a.Len()
 	return {{.Vec}}{
 		{{- range .Comp -}}
@@ -176,7 +176,6 @@ func (a {{.Vec}}) Max(b {{.Vec}}) {{.Vec}} {
 		{{- end -}}
 	}
 }
-
 
 // Eq returns whether a == b
 func (a {{.Vec}}) Eq(b {{.Vec}}) bool {
@@ -306,6 +305,7 @@ func (a {{.Vec}}) Slice() []float32 {
 		{{- end -}}
 	}
 }
+
 {{ if ge .N 2 -}}
 // Float2 returns two first components
 func (a {{.Vec}}) FloatXY() [2]float32 { return [2]float32{a.X, a.Y} }
@@ -314,7 +314,7 @@ func (a {{.Vec}}) FloatXY() [2]float32 { return [2]float32{a.X, a.Y} }
 // Float3 returns three first components
 func (a {{.Vec}}) FloatXYZ() [3]float32 { return [3]float32{a.X, a.Y, a.Z} }
 {{- end }}
-{{- if ge .N 4 -}}
+{{ if ge .N 4 -}}
 // Float4 returns four first components
 func (a {{.Vec}}) FloatXYZW() [4]float32 { return [4]float32{a.X, a.Y, a.Z, a.W} }
 {{- end }}
