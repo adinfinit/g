@@ -28,6 +28,27 @@ func (a Mat4) EqAlmost(b Mat4, eps float32) bool {
 		(Abs(a.M30-b.M30) < eps) && (Abs(a.M31-b.M31) < eps) && (Abs(a.M32-b.M32) < eps) && (Abs(a.M33-b.M33) < eps)
 }
 
+func (a Mat4) Mul4(b Mat4) Mat4 {
+	return Mat4{
+		a.M00*b.M00 + a.M10*b.M01 + a.M20*b.M02 + a.M30*b.M03,
+		a.M01*b.M00 + a.M11*b.M01 + a.M21*b.M02 + a.M31*b.M03,
+		a.M02*b.M00 + a.M12*b.M01 + a.M22*b.M02 + a.M32*b.M03,
+		a.M03*b.M00 + a.M13*b.M01 + a.M23*b.M02 + a.M33*b.M03,
+		a.M00*b.M10 + a.M10*b.M11 + a.M20*b.M12 + a.M30*b.M13,
+		a.M01*b.M10 + a.M11*b.M11 + a.M21*b.M12 + a.M31*b.M13,
+		a.M02*b.M10 + a.M12*b.M11 + a.M22*b.M12 + a.M32*b.M13,
+		a.M03*b.M10 + a.M13*b.M11 + a.M23*b.M12 + a.M33*b.M13,
+		a.M00*b.M20 + a.M10*b.M21 + a.M20*b.M22 + a.M30*b.M23,
+		a.M01*b.M20 + a.M11*b.M21 + a.M21*b.M22 + a.M31*b.M23,
+		a.M02*b.M20 + a.M12*b.M21 + a.M22*b.M22 + a.M32*b.M23,
+		a.M03*b.M20 + a.M13*b.M21 + a.M23*b.M22 + a.M33*b.M23,
+		a.M00*b.M30 + a.M10*b.M31 + a.M20*b.M32 + a.M30*b.M33,
+		a.M01*b.M30 + a.M11*b.M31 + a.M21*b.M32 + a.M31*b.M33,
+		a.M02*b.M30 + a.M12*b.M31 + a.M22*b.M32 + a.M32*b.M33,
+		a.M03*b.M30 + a.M13*b.M31 + a.M23*b.M32 + a.M33*b.M33,
+	}
+}
+
 func Perspective(fovy, aspect, near, far float32) Mat4 {
 	f := 1.0 / Tan(fovy/2.0)
 	return Mat4{
