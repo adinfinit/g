@@ -15,6 +15,9 @@ func V2(X, Y float32) Vec2 {
 	return Vec2{X: X, Y: Y}
 }
 
+// Ptr returns pointer to the first element
+func (a *Vec2) Ptr() *float32 { return &a.X }
+
 // Add does a component wise a + b
 func (a Vec2) Add(b Vec2) Vec2 {
 	return Vec2{X: a.X + b.X, Y: a.Y + b.Y}
@@ -202,6 +205,9 @@ var (
 func V3(X, Y, Z float32) Vec3 {
 	return Vec3{X: X, Y: Y, Z: Z}
 }
+
+// Ptr returns pointer to the first element
+func (a *Vec3) Ptr() *float32 { return &a.X }
 
 // Add does a component wise a + b
 func (a Vec3) Add(b Vec3) Vec3 {
@@ -401,6 +407,9 @@ var (
 func V4(X, Y, Z, W float32) Vec4 {
 	return Vec4{X: X, Y: Y, Z: Z, W: W}
 }
+
+// Ptr returns pointer to the first element
+func (a *Vec4) Ptr() *float32 { return &a.X }
 
 // Add does a component wise a + b
 func (a Vec4) Add(b Vec4) Vec4 {
