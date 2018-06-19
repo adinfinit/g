@@ -5,6 +5,7 @@ import "math"
 const (
 	Pi  = math.Pi
 	Tau = 2 * math.Pi
+	Phi = math.Phi
 )
 
 func DegToRad(deg float32) float32 { return deg * Tau / 360 }
