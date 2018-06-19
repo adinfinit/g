@@ -7,6 +7,10 @@ const (
 	Tau = 2 * math.Pi
 )
 
+func DegToRad(deg float32) float32 { return deg * Tau / 360 }
+func RadToDeg(rad float32) float32 { return rad * 360 / Tau }
+
+func Exp(e float32) float32       { return float32(math.Exp(float64(e))) }
 func Pow(base, e float32) float32 { return float32(math.Pow(float64(base), float64(e))) }
 func Mod(x, y float32) float32    { return float32(math.Mod(float64(x), float64(y))) }
 func Sqr(v float32) float32       { return v * v }
@@ -15,8 +19,10 @@ func Sqrt(v float32) float32      { return float32(math.Sqrt(float64(v))) }
 func Ceil(v float32) float32  { return float32(math.Ceil(float64(v))) }
 func Floor(v float32) float32 { return float32(math.Floor(float64(v))) }
 
-func Sin(v float32) float32 { return float32(math.Sin(float64(v))) }
-func Cos(v float32) float32 { return float32(math.Cos(float64(v))) }
+func Sin(v float32) float32      { return float32(math.Sin(float64(v))) }
+func Cos(v float32) float32      { return float32(math.Cos(float64(v))) }
+func Tan(v float32) float32      { return float32(math.Tan(float64(v))) }
+func Atan2(y, x float32) float32 { return float32(math.Atan2(float64(y), float64(x))) }
 
 func Sincos(v float32) (float32, float32) {
 	sn, cs := math.Sincos(float64(v))

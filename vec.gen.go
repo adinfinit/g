@@ -74,6 +74,9 @@ func {{.Svec}}({{ join .Comp ", " }} float32 ) {{.Vec}} {
 	}
 }
 
+// Ptr returns pointer to the first element
+func (a *{{.Vec}}) Ptr() *float32 { return &a.X }
+
 // Add does a component wise a + b
 func (a {{.Vec}}) Add(b {{.Vec}}) {{.Vec}} {
 	return {{.Vec}}{

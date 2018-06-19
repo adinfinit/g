@@ -1,6 +1,6 @@
 package wavefront
 
-import "adinfinitum.ee/g"
+import "github.com/adinfinit/g"
 
 // https://en.wikipedia.org/wiki/Wavefront_.obj_file
 // http://paulbourke.net/dataformats/obj/
